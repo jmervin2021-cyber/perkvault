@@ -5,6 +5,7 @@ from app.core.database import Base, engine, get_db
 from app.models.settlement import Settlement
 from app.scrapers.kroll_scraper import SettlementScraper
 from app.api.unclaimed_property import router as unclaimed_property_router
+from app.api.perk_audit import router as perk_audit_router
 import asyncio
 
 Base.metadata.create_all(bind=engine)
@@ -13,6 +14,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 
 # Include API Routers
 app.include_router(unclaimed_property_router, prefix=settings.API_V1_STR)
+app.include_router(perk_audit_router, prefix=settings.API_V1_STR)
 
 def run_scraper_task():
     scraper = SettlementScraper()
